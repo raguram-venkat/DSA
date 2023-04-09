@@ -1,26 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
-void compute(int n, int k, priority_queue<int> pq){
-    int result=0;
-    for (int i = 0,temp1,temp2; i < k; i++)
+void compute(int n, int k, priority_queue<int> pq)
+{
+    int result = 0;
+    for (int i = 0, temp1, temp2; i < k; i++)
     {
         temp1 = pq.top();
-        temp2 = temp1/2;
-        result += temp1-temp2;
+        temp2 = temp1 / 2;
+        result += temp1 - temp2;
         pq.pop();
         pq.push(temp2);
     }
-    cout<<result;
+    cout << result;
 }
-int main(){
-    int n,k;
-    cin>>n>>k;
+int main()
+{
+    int n, k;
+    cin >> n >> k;
     priority_queue<int> pq;
-    for (int i = 0,temp; i < n; i++)
+    for (int i = 0, temp; i < n; i++)
     {
-        cin>>temp;
+        cin >> temp;
         pq.push(temp);
     }
-    compute(n,k,pq);
+    compute(n, k, pq);
     return 0;
 }
