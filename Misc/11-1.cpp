@@ -24,7 +24,7 @@ int max_value_dumbbells(int n, int w, vector<int>& weights, vector<int>& values)
 int main() {
     int n = 3;
     int w = 8;
-    vector<int> weights = {3, 4, 5,};
+    vector<int> weights = {3, 4, 5};
     vector<int> values = {30, 50, 60};
     cout << max_value_dumbbells(n, w, weights, values) << endl; 
     return 0;

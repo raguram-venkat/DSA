@@ -1,113 +1,154 @@
-#include<vector>
 #include<bits/stdc++.h>
 using namespace std;
 
-int binarySearch(int n,int k,int *a)
+int fun3(string s,string t)
 {
-    int left=0;
-    int right=n-1;
-    int mid;
-    while(left<right)
+    int n=s.size();
+    int m=t.size();
+    vector<vector<int>>(n+1,vector<int>(m+1,0)) t;
+    for(int i=0;i<=n;i++)
+    t[i][0]=i;
+    for(int i=0;j<=n;j++)
+    t[0][j]=j;
+
+    for(int i=1;i<=n;i++)
     {
-         mid=(right+left)/2;
-
-        if(a[mid]==k)
+        for(int j=1;j<=m;j++)
         {
-            return mid;
+            if(s[i-1]==t[j-1])
+            t[i][j]=t[i-1][j-1];
+            else
+            t[i][j]=min({t[i][j],t[i][j-1],t[i-1][j]})+1;
         }
-
-        if(a[mid]<k)
-        {
-            left=mid+1;
-        }
-
-        if(a[mid]>k)
-        {
-            right=mid;
-        }
-
     }
 
-    return mid;
+    return t[n][m];
 }
 
-void merge(int a[],int p,int q,int r)
+int fun2(vector<int> &a,vector<int> &b)
 {
-    int n1=q-p+1;
-    int n2=r-q;
+    int n=a.size();
+    int m=b.size();
+    vector<vector<int>>(n+1,vector<int>(m+1,0))t;
 
-    int l[n1];
-    int m[n2];
-
-    for(int i=0;i<n1;i++)
+    for(int i=1;i<=n;i++)
     {
-        l[i]=a[p+i];
+        for(int j=1;j<=m;j++)
+        {
+            if(a[i-1]==b[j-1])
+            {
+                t[i][j]=t[i-1][j-1]+1;
+                max_element=max(max_element,t[i][j]);
+
+            }
+           
+        }
     }
 
-    for(int i=0;i<n2;i++)
+    return max_element;
+}
+
+int fun1(int n,int k,vector<int> &weight,vector<int> &value)
+{
+    vector<vector<int>>(n+1,vector<int>(k+1,0)) t;
+
+    for(int i=1;i<=n;i++)
     {
-        m[i]=a[q+i+1];
+        for(int j=1;j<=m;j++)
+        {
+            if(weight[i-1]>j)
+            {
+               t[i][j]=t[i-1][j];
+            }
+            else
+             t[i][j]=max(t[i-1][j],values[i-1]+t[i-1][j-weight[i-1]]);
+        }
+    }
+}
+
+
+int fun5(vector<int> &p)
+{
+    int n=p.size()-1;
+    vector<vector<int>>t(n,vector<int>(n,0)) t;
+    for(int len=2;len<=n;len++)
+    {
+        for(int i=0;i<=n-len;i++)
+        {
+            int j=i-1+len;
+            t[i][j]=INT_MAX;
+            for(int k=i;k<j;k++)
+            {
+                t[i][j]=min(t[i][j],t[i][k]+t[k+1][j]+p[i]*p[j+1]*p[k+1])
+            }
+
+
+        }
     }
 
-    int mp=0;
-    int lp=0;
-    int ap=p;
+    return t[0][n-1];
+}
 
-    while(lp<n1 && mp<n2)
+
+int fun6(vector<int> & a,int k)
+{
+    vector<int>(k+1,INT_MAX)t;
+    t[0]=0;
+    int n=a.size();
+    for(int i=1;i<=k;i++)
     {
-        if(l[lp]<=m[mp])
+        for(int j=0;j<n;j++)
         {
-            a[ap]=l[lp];
-            ap++;
-            lp++;
-        }
-
-        else
-        {
-            a[ap]=m[mp];
-            ap++;
-            mp++;
+            if(a[j]<=i)
+            {
+                int sub_res=t[i-a[j]];
+                if(sub_res!=INT_MAX)
+                t[i]=
+            }
         }
 
     }
 
-        while(mp<(n2))
+}
+
+int fun9(vector<int> &a)
+{
+    int n=a.size();
+    vector<vector<int>>(n,vector<int>(n,0)) t;
+
+    for(int len=1;len<=n;len++)
+    {
+        for(int i=0;i<=n-len;i++)
         {
-            a[ap]=m[mp];
-            ap++;
-            mp++;
+            int j=i-1+len;
+            int parity=(n-len)%2;
+            if(i==j)
+            t[i][j]=(parity?-a[i]:a[i]);
+            else if(parity)
+            t[i][j]=min(a[i+1][j]-a[i],a[i][j-1]-a[j]);
+            else
+            t[i][j]=max(a[i+1][j]-a[i],a[i][j-1]-a[j]);
         }
+    }
+
+    return t[0][n-1];
+}
+
+
+int fun6(vector<int> &coupons,int k)
+{
     
+    vector<int>(k+1,INT_MAX)t;
+    t[0]=0;
 
-     while(lp<(n1))
-        {
-            a[ap]=l[lp];
-            ap++;
-            lp++;
-        }
-   
-}
-
-
-void mergeSort(int *a,int l,int r)
-{
-    if(l<r)
+    for(int i=1;i<=k;i++)
     {
-        int mid= (l+r)/2;
-        mergeSort(a,l,mid);
-        mergeSort(a,mid+1,r);
-        merge(a,l,mid,r);
+        for(int j=0;j<n;j++)
+        {
+            if(coupons[j]<=i)
+            {
+                t[i][j]=
+            }
+        }
     }
-}
-
-int main()
-{
-    
-    int a[100]={56,84,1,2,43,8,9,34,32,45};
-    int c=binarySearch(6,9,a);
-    mergeSort(a,0,9);
-    for(int i=0;i<9;i++)
-    cout<<a[i];
-
-
 }
